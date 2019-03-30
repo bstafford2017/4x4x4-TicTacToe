@@ -487,7 +487,7 @@ setSystemPiece:
       lb $t0, systemPiece
       sb $t0, piece
       jr $ra
-# systemSelect -- goes through system selection, end goes to newMove        #### CONTINUE HERE####
+# systemSelect -- goes through system selection, end goes to newMove
 # Registers:
 #   $t0 -- temp
 # (NO STACK) -- does not go back to main
@@ -678,7 +678,7 @@ checkOp3:
       bne $v0, $t7, allCheck3 # If board[$t0,$t1] = opposite piece
       li $s2, -50          # If opposite piece, set $s2 to negative #
       
-allCheck3:  # Check commented (counters) grid and cell               ############## CHECK THIS #################
+allCheck3:  # Check commented (counters) grid and cell
       add $s0, $s0, 48     # Change INT to grid
       add $s1, $s1, 97     # Map 0-15 to a-p
        
@@ -1148,7 +1148,7 @@ failRandom:
 # Registers:
 #    $t0 -- systemPiece for comparison
 won:
-      lb $t0, systemPiece                                                     ################## CHECK SYSTEM PIECE #######################
+      lb $t0, systemPiece
       beq $a0, $t0, wonSystem     # Check if piece = systemPiece
       				  # Else piece is userPiece
       li $v0, 4
