@@ -1,0 +1,1223 @@
+.data
+new:   .ascii "\n\n  | . . . . | . . . . | . . . . | . . . . |   a b c d"
+       .ascii   "\n  | . . . . | . . . . | . . . . | . . . . |   e f g h"
+       .ascii   "\n  | . . . . | . . . . | . . . . | . . . . |   i j k l"
+       .ascii   "\n  | . . . . | . . . . | . . . . | . . . . |   m n o p"
+       .asciiz  "\n  |   (0)   |   (1)   |   (2)   |   (3)   |   (index)\n"
+
+board: .ascii "\n\n  | . . . . | . . . . | . . . . | . . . . |   a b c d"
+       .ascii   "\n  | . . . . | . . . . | . . . . | . . . . |   e f g h"
+       .ascii   "\n  | . . . . | . . . . | . . . . | . . . . |   i j k l"
+       .ascii   "\n  | . . . . | . . . . | . . . . | . . . . |   m n o p"
+       .asciiz  "\n  |   (0)   |   (1)   |   (2)   |   (3)   |   (index)\n"
+       
+offset: .half   6,   8,  10,  12,  16,  18,  20,  22,  26,  28,  30,  32,  36,  38,  40,  42
+        .half  60,  62,  64,  66,  70,  72,  74,  76,  80,  82,  84,  86,  90,  92,  94,  96
+        .half 114, 116, 118, 120, 124, 126, 128, 130, 134, 136, 138, 140, 144, 146, 148, 150
+        .half 168, 170, 172, 174, 178, 180, 182, 184, 188, 190, 192, 194, 198, 200, 202, 204
+
+allCount: .byte 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+          .byte 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+          .byte 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+          .byte 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+          .byte 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+          .byte 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+          .byte 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+          .byte 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+          .byte 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+          .byte 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+          .byte 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+          .byte 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+          .byte 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+          .byte 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+          .byte 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+          .byte 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+          .byte 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+          .byte 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 
+counter: .byte 1  
+    
+wonGame: .asciiz "\nPiece winner: "                      
+pickPiece: .asciiz "\nPick a Piece (X/O) : "
+pickGrid: .asciiz "\nPick a Grid (0-3): "
+pickCell: .asciiz "\nPick a Cell (a-p): "
+pickContinue: .asciiz "\nDo you want to continue? (Y/N): "
+pickNewGame: .asciiz "\nDo you want to start a new game? (Y/N): "
+
+picked: .asciiz "\nYou Picked: "
+systemPicked: .asciiz "\nSystem Picked: "
+invalid: .asciiz "\n ****Invalid Response!****"
+stopSystem: .asciiz "\nHit any key for system to select move: "
+thinking: .asciiz "\nThinking..."
+systemPiece: .byte '$'
+userPiece: .byte '$'
+
+congratsSystem: .asciiz "\n**System won! You lost against the computer**"
+congratsUser: .asciiz "\n**You Won! You beat the computer!**"
+drawGame: .asciiz "\nDraw! There is no winner to this game"
+welcome: .asciiz "\n---------- WELCOME TO 4x4x4 TicTacToe ----------"
+
+piece: .byte '$'
+grid: .byte '$'
+cell: .byte '$'
+
+comb: .ascii  "0b0c0d 0f0k0p 0e0i0m 1a2a3a 1b2c3d 1e2i3m 1f2k3p"      # 0a
+      .ascii  "0a0c0d 0f0j0n 1b2b3b 1f2j3n                     "      # 0b
+      .ascii  "0a0b0d 0g0k0o 1c2c3c 1g2k3o                     "      # 0c
+      .ascii  "0a0b0c 0h0l0p 0g0j0m 1d2d3d 1g2j3m 1c2b3a 1h2l3p"      # 0d
+      .ascii  "0a0i0m 0f0g0h 1e2e3e 1f2g3h                     "      # 0e
+      .ascii  "0e0g0h 0b0j0n 0a0k0p 1f2f3f                     "      # 0f
+      .ascii  "0e0f0h 0c0k0o 0d0j0m 1g2g3g                     "      # 0g
+      .ascii  "0e0f0g 0d0l0p 1h2h3h 1g2f3e                     "      # 0h
+      .ascii  "0a0e0m 0j0k0l 1i2i3i 1j2k3l                     "      # 0i
+      .ascii  "0i0k0l 0b0f0n 0m0g0d 1j2j3j                     "      # 0j
+      .ascii  "0i0j0l 0c0g0o 0a0f0p 1k2k3k                     "      # 0k
+      .ascii  "0i0j0k 0d0h0p 1l2l3l 1k2j3i                     "      # 0l
+      .ascii  "0a0e0i 0n0o0p 0j0g0d 1m2m3m 1i2e3a 1n2o3p 1j2g3d"      # 0m
+      .ascii  "0m0o0p 0b0f0j 1n2n3n 1j2f3b                     "      # 0n
+      .ascii  "0m0n0p 0c0g0k 1o2o3o 1k2g3c                     "      # 0o
+      .ascii  "0m0n0o 0d0h0l 0k0f0a 1p2p3p 1l2h3d 1k2f3a 1o2n2m"      # 0p
+      .ascii  "1b1c1d 1f1k1p 1e1i1m 0a2a3a                     "      # 1a
+      .ascii  "1a1c1d 1f1j1n 0b2b3b 0a2c3d                     "      # 1b
+      .ascii  "1a1b1d 1g1k1o 0c2c3c 0d2b3a                     "      # 1c
+      .ascii  "1a1b1c 1h1l1p 1g1j1m 0d2d3d                     "      # 1d
+      .ascii  "1a1i1m 1f1g1h 0e2e3e 0a2i3m                     "      # 1e
+      .ascii  "1e1g1h 1b1j1n 1a1k1p 0f2f3f 0a2k3p 0b2j3n 0e2g3h"      # 1f
+      .ascii  "1e1f1h 1c1k1o 1d1j1m 0g2g3g 0d2j3m 0c2k3o 0h2f3e"      # 1g
+      .ascii  "1e1f1g 1d1l1p 0h2h3h 0d2l3p                     "      # 1h
+      .ascii  "1a1e1m 1j1k1l 0i2i3i 0m2e3a                     "      # 1i
+      .ascii  "1i1k1l 1b1f1n 1d1g1m 0j2j3j 0m2g3d 0n2f3b 0i2k3l"      # 1j
+      .ascii  "1i1j1l 1c1g1o 1a1f1p 0k2k3k 0p2f3a 0o2g3c 0l2j3i"      # 1k
+      .ascii  "1i1j1k 1d1h1p 0l2l3l 0p2h3d                     "      # 1l
+      .ascii  "1a1e1i 1n1o1p 1j1g1d 0m2m3m                     "      # 1m
+      .ascii  "1m1o1p 1b1f1j 0n2n3n 0m2o3p                     "      # 1n
+      .ascii  "1m1n1p 1c1g1k 0o2o3o 0p2n3m                     "      # 1o
+      .ascii  "1m1n1o 1d1h1l 1k1f1a 0p2p3p                     "      # 1p
+      .ascii  "2b2c2d 2f2k2p 2e2i2m 0a1a3a                     "      # 2a
+      .ascii  "2a2c2d 2f2j2n 0b1b3b 3a1c0d                     "      # 2b
+      .ascii  "2a2b2d 2g2k2o 0c1c3c 3d1b0a                     "      # 2c
+      .ascii  "2a2b2c 2h2l2p 2g2j2m 0d1d3d                     "      # 2d
+      .ascii  "2a2i2m 2f2g2h 0e1e3e 3a1i0m                     "      # 2e
+      .ascii  "2e2g2h 2b2j2n 2a2k2p 0f1f3f 0h1g3e 0n1j3b 0p1k3a"      # 2f
+      .ascii  "2e2f2h 2c2k2o 2d2j2m 0g1g3g 0o1k3c 0e1f3h 0m1j3d"      # 2g
+      .ascii  "2e2f2g 2d2l2p 0h1h3h 3d1l0p                     "      # 2h
+      .ascii  "2a2e2m 2j2k2l 0i1i3i 3m1e0a                     "      # 2i
+      .ascii  "2i2k2l 2b2f2n 2d2g2m 0j1j3j 0l1k3i 0b1f3n 0d1g3m"      # 2j
+      .ascii  "2i2j2l 2c2g2o 2a2f2p 0k1k3k 0c1g3o 0i1j3l 0a1f3p"      # 2k
+      .ascii  "2i2j2k 2d2h2p 0l1l3l 0d1h3p                     "      # 2l
+      .ascii  "2a2e2i 2n2o2p 2d2g2j 0m1m3m                     "      # 2m
+      .ascii  "2m2o2p 2b2f2j 0n1n3n 0p1o3m                     "      # 2n
+      .ascii  "2m2n2p 2c2g2k 0o1o3o 0m1n3p                     "      # 2o
+      .ascii  "2m2n2o 2d2h2l 2a2f2k 0p1p3p                     "      # 2p
+      .ascii  "3b3c3d 3f3k3p 3e3i3m 0a1a2a 0d1c2b 0p1k2f 0m1i2e"      # 3a
+      .ascii  "3a3c3d 3f3j3n 0b1b2b 0n1j2b                     "      # 3b
+      .ascii  "3a3b3d 3g3k3o 0c1c2c 0o1k2g                     "      # 3c
+      .ascii  "3a3b3c 3h3l3p 3g3j3m 0d1d2d 0a1b2c 0m1j2g 0p1l2h"      # 3d
+      .ascii  "3a3i3m 3f3g3h 0e1e2e 0h1g2f                     "      # 3e
+      .ascii  "3e3g3h 3b3j3n 3a3k3p 0f1f2f                     "      # 3f
+      .ascii  "3e3f3h 3c3k3o 3d3j3m 0g1g2g                     "      # 3g
+      .ascii  "3e3f3g 3d3l3p 0h1h2h 0e1f2g                     "      # 3h
+      .ascii  "3a3e3m 3j3k3l 0i1i2i 0l1k2j                     "      # 3i
+      .ascii  "3i3k3l 3b3f3n 3d3g3m 0j1j2j                     "      # 3j
+      .ascii  "3i3j3l 3c3g3o 3a3f3p 0k1k2k                     "      # 3k
+      .ascii  "3i3j3k 3d3h3p 0l1l2l 0i1j2k                     "      # 3l
+      .ascii  "3a3e3i 3n3o3p 3d3g3j 0m1m2m 0a1e2i 0d1g2j 0p1o2n"      # 3m
+      .ascii  "3m3o3p 3b3f3j 0n1n2n 0b1f2j                     "      # 3n
+      .ascii  "3m3n3p 3c3g3k 0o1o2o 0c1g2k                     "      # 3o
+      .ascii  "3m3n3o 3d3h3l 3a3f3k 0p1p2p 0a1f2k 0d1h2l 0m1n2o"      # 3p
+
+.text      
+main: 
+      li $v0, 4
+      la $a0, welcome
+      syscall
+
+      li $a1, 2 
+      li $v0, 42
+      syscall
+      
+      beqz $a0, setupPiece # If random select is 0, system goes first
+                           # Else user selects piece
+      li $v0, 4
+      la $a0, board      
+      syscall       # Print board
+    
+      jal setPiece  # Call setPiece
+# newMove -- user next move with checking insert, checking win, and checking draw
+newMove:
+      lb $t0, piece
+      lb $t1, systemPiece
+      beq $t0, $t1, systemSelect  # If piece = system's piece, go to systemSelect
+                                  # Else continue as usual
+      
+      jal setGrid   # Call setGrid
+      jal setCell   # Call setCell
+      lb $a0, grid  # Load grid argument for compute
+      lb $a1, cell  # Load cell argument for compute
+      jal compute   # Call compute
+      move $a0, $v0      # Load arguments for checkInsert 
+      jal checkInsert    # Call insert
+      
+      jal setCont        # Call setCont
+      j exit             # Call exit
+      
+# Return $v0, return address for main
+setupPiece:
+      li $a1, 2
+      li $v0, 42
+      syscall
+      
+      # Randomly selects a piece for system
+      bnez $v0, temp2  # If $v0 != 0, set piece as X
+      li $t0, 'O'      # Else set piece as O    
+      sb $t0, piece
+temp2:
+      li $t0, 'X'
+      sb $t0, piece
+      
+      sb $t0, systemPiece
+      
+      li $v0, 4
+      la $a0, systemPicked
+      syscall
+      
+      li $v0, 11
+      move $a0, $t0
+      syscall
+      
+      move $a0, $t0
+      move $s0, $ra        # Save return address
+      jal oppositePiece
+      move $ra, $s0        # Restore return address
+      sb $v0, userPiece
+      
+      j systemSelect    # Does not go back to main
+setPiece: 
+      li $v0, 4
+      la $a0, pickPiece
+      syscall       # Print pickPiece
+      
+      li $v0, 12
+      syscall       # Read in piece
+      
+      sb $v0, piece        # Store piece
+      sb $v0, userPiece
+      # Set opposite piece value
+      move $a0, $v0
+      move $s0, $ra        # Save return address
+      jal oppositePiece
+      move $ra, $s0        # Restore return address
+      sb $v0, systemPiece
+      
+      lb $v0, piece
+      
+      # Save return address ($s0)
+      move $s0, $ra
+      
+      beq $v0, 88, printPiece  # If piece = 'X'
+      beq $v0, 79, printPiece  # If piece = 'O'
+      
+      li $v0, 4
+      la $a0, invalid
+      syscall          # Print invalid
+      
+      j setPiece
+# $s0 -- return address back to main
+printPiece: 
+      li $v0, 4
+      la $a0, picked
+      syscall          # Print picked
+      
+      li $v0, 11
+      lb $a0, piece
+      syscall          # Print piece
+      
+      move $ra, $s0
+      jr $ra           # Return
+setGrid:
+      li $v0, 4
+      la $a0, pickGrid
+      syscall       # Print pickGrid
+      
+      li $v0, 12
+      syscall       # Read in grid
+      
+      sb $v0, grid  # Store grid
+      
+      lb $v0, grid  # Load grid
+      
+      # Save return address ($s0)
+      move $s0, $ra
+      
+      beq $v0, 48, printGrid  # If grid = '0'
+      beq $v0, 49, printGrid  # If grid = '1'
+      beq $v0, 50, printGrid  # If grid = '2'
+      beq $v0, 51, printGrid  # If grid = '3'
+      
+      li $v0, 4
+      la $a0, invalid
+      syscall        # Print invalid
+      
+      j setGrid
+# $s0 -- return address back to main
+printGrid:
+      li $v0, 4
+      la $a0, picked 
+      syscall        # Print picked 
+      
+      li $v0, 11
+      lb $a0, grid
+      syscall        # Print grid
+      
+      move $ra, $s0
+      jr $ra         # Return
+setCell:
+      li $v0, 4
+      la $a0, pickCell
+      syscall        # Print "Pick a Cell"
+      
+      li $v0, 12
+      syscall        # Read in cell
+      
+      sb $v0, cell   # Store cell
+      
+      lb $v0, cell   # Load cell
+      blt $v0, 97, invalidCell   # If cell <= 'a', then repeat
+      bgt $v0, 112, invalidCell   # If cell >= 'p', then repeat
+printCell:
+      li $v0, 4
+      la $a0, picked
+      syscall   # Print picked
+      
+      li $v0, 11
+      lb $a0, cell
+      syscall   # Print cell
+      
+      jr $ra    # Return
+invalidCell:
+      li $v0, 4
+      la $a0, invalid
+      syscall    # Print invalid
+      j setCell  # Jump back to setCell      
+
+# compute -- calculates value offset for board
+# Input:
+#   $a0 -- grid
+#   $a1 -- cell
+# Return:
+#   $v0 -- computed value
+# Registers:
+#   $t0 -- temp
+#   $t1 -- temp
+compute:
+      # -- Prolog -- 
+      sub $sp, $sp, 4
+      sw $ra, ($sp)      # Push $ra on stack
+      sub $sp, $sp, 4
+      sw $t0, ($sp)      # Push $t0 on stack
+      sub $sp, $sp, 4
+      sw $t1, ($sp)      # Push $t1 on stack
+      
+      # -- Body --
+      sub $a0, $a0, 48     # Change grid to INT
+      sub $a1, $a1, 97     # Map a-p to 0-15
+      
+      li $v0, 4
+      div $a1, $v0         # cell%4
+      mfhi $v0             # $v0 = remainder
+      mflo $t0             # $t0 = quotient   
+      mul $t0, $t0, 16     # $t0 = (cell/4)x16
+      mul $t1, $a0, 4      # $t1 = gridx4
+      
+      add $t0, $v0, $t0    # $t0 = (cell%4) + (cell/4)x16
+      add $t0, $t0, $t1    # $t0 = $t0 + gridx4
+      
+      mul $t0, $t0, 2      # Multiply by 2 for halfword
+      lh $t0, offset($t0)  # Get offset index
+      
+      move $v0, $t0        # Set return value
+      
+      # -- Epilog --
+      lw $t1, ($sp)
+      add $sp, $sp, 4      # Pop $t1
+      lw $t0, ($sp)
+      add $sp, $sp, 4      # Pop $t0
+      lw $ra, ($sp)
+      add $sp, $sp 4       # Pop $ra
+      
+      jr $ra               # Return 
+# computeWin -- calculates value offset for winning combinations
+# Return:
+#   $v0 -- computed location for row of winning combinations
+# Registers:
+#   $t0 -- temp
+#   $t1 -- temp
+computeWin:
+      # -- Prolog --
+      sub $sp, $sp, 4
+      sw $ra, ($sp)      # Push $ra on stack
+      sub $sp, $sp, 4
+      sw $t0, ($sp)      # Push $t0 on stack
+      sub $sp, $sp, 4
+      sw $t1, ($sp)      # Push $t1 on stack
+
+      # -- Body --
+      lb $t0, grid         # Load grid
+      lb $t1, cell         # Load cell
+      
+      sub $t0, $t0, 48     # Change grid to INT
+      sub $t1, $t1, 97     # Map a-p to 0-15
+      
+      mul $t0, $t0, 16    # $t0 = grid x 16 (each grid size)
+      add $t0, $t0, $t1   # $t0 = (grid x 16) + cell
+      mul $t0, $t0, 48    # $t0 = ((grid x 16) + cell) x 48 (each string size)      
+            
+      move $v0, $t0        # Set return value
+      
+      # -- Epilog --
+      lw $t1, ($sp)
+      add $sp, $sp, 4      # Pop $t1
+      lw $t0, ($sp)
+      add $sp, $sp, 4      # Pop $t0
+      lw $ra, ($sp)
+      add $sp, $sp 4       # Pop $ra
+      
+      jr $ra
+#### NOT NECESSARY ####
+# Arguments $a0, computed value from compute
+# Registers:
+#    $t0 - temp
+# **ONLY FOR USER USE!**
+checkInsert:
+      lb $t0, board($a0)   # Get board[i] character
+      
+      beq $t0, 46, insert  # Check if empty cell
+      
+      li $v0, 4
+      la $a0, invalid
+      syscall              # Print invalid
+      
+      jal newMove          # Board is filled, select new location
+# insert -- puts piece into board at location
+# Input:
+#   $a0 -- computed location for row of winning combinations
+# Registers:
+#   $t0 -- temp
+# **ONLY FOR USER USE!**
+insert:
+      # -- Prolog --
+      sub $sp, $sp, 4
+      sw $ra, ($sp)        # Push $ra on stack
+      sub $sp, $sp, 4
+      sw $t0, ($sp)        # Push $t0 on stack
+
+      # -- Body --
+      lb $t0, piece      # Load piece
+      sb $t0, board($a0)   # Put into board
+      
+      li $v0, 4
+      la $a0, board        
+      syscall              # Print board
+      
+      # -- Epilog --
+      lw $t0, ($sp)
+      add $sp, $sp, 4      # Pop $t0
+      lw $ra, ($sp)
+      add $sp, $sp 4       # Pop $ra
+      
+      jr $ra               # Return
+# setCont -- reads in continue response (loops if error)
+# Registers:
+#   $t0 -- temp
+setCont:
+      li $s0, 0
+      jal checkWin
+      
+      # Reverse piece
+      lb $a0, piece
+      jal oppositePiece
+      sb $v0, piece
+
+      li $v0, 4
+      la $a0, pickContinue
+      syscall     # Print pickContinue
+
+      li $v0, 12
+      syscall     # Read in continue
+      
+      lb $a0, counter
+      add $a0, $a0, 1
+      sb $a0, counter
+      
+      beq $v0, 89, newMove   # Test if 'Y'
+      beq $v0, 121, newMove  # Test if 'y'
+      beq $v0, 78, newGame   # Test if 'N'
+      beq $v0, 110, newGame  # Test if 'n'
+      
+      li $v0, 4
+      la $a0, invalid
+      syscall   # Print invalid
+      
+      j setCont
+# newGame -- reads in new game response (loops if error)
+# Jumps to resetBoard or exit (NO STACK)    
+newGame:
+      li $v0, 4
+      la $a0, pickNewGame
+      syscall     # Print pickNewGame
+
+      li $v0, 12
+      syscall     # Read in new game
+      
+      li $a0, 0
+      sb $a0, counter      # Reset counter for new game
+      
+      li $a0, 0     # Load counter for resetBoard (Because loop)
+      beq $v0, 89, resetBoard   # Test if 'Y'
+      beq $v0, 121, resetBoard  # Test if 'y'
+      beq $v0, 78, exit         # Test if 'N'
+      beq $v0, 110, exit        # Test if 'n'
+
+      li $v0, 4
+      la $a0, invalid
+      syscall   # Print invalid  
+      
+      j newGame
+# resetBoard -- restores board from new
+# Input:
+#   $a0 -- counter
+# Registers:
+#   $t0 -- temp 
+resetBoard:    
+      lb $t0, new($a0)     # Get new[i]
+      beqz $t0, main       # If value is 0, go to main
+      sb $t0, board($a0)   # Store new[i] into board[i]
+      addi $a0, $a0, 1     # Increment board[i]
+      j resetBoard
+setUserPiece:
+      lb $t0, userPiece
+      sb $t0, piece
+      jr $ra
+setSystemPiece:
+      lb $t0, systemPiece
+      sb $t0, piece
+      jr $ra
+# systemSelect -- goes through system selection, end goes to newMove
+# Registers:
+#   $t0 -- temp
+# (NO STACK) -- does not go back to main
+systemSelect:
+      li $v0, 4
+      la $a0, stopSystem
+      syscall           # Print stopSystem prompt
+
+      li $v0, 12
+      syscall           # Read in any character (ignore)
+
+      # If 1-3 are true, go to newMove
+      # Else 4 always true, go to newMove
+
+      # (1.) Check if one move win for system
+      li $s0, 0
+      li $s1, 0
+      lb $s3, systemPiece
+      li $s5, 0
+      li $s6, 0
+      jal oneMoveWin
+      
+      # (3.) Find max gain 
+      # (before oneBlockWin because allCount is full of system piece values)
+      li $s0, 0
+      li $s1, -50
+      li $s2, 0
+      jal maxGain
+      move $t6, $v0   # Save grid for correct insert
+      move $t8, $v1   # Save cell for correct insert
+
+      # (2.) Check if one move block win
+      li $s0, 0
+      li $s1, 0
+      lb $s3, userPiece 
+      li $s5, 0
+      li $s6, 0
+      jal oneMoveWin      
+      
+      # Check maxGain choice
+      move $a0, $t6
+      move $a1, $t8
+      jal compute
+      move $t0, $v0
+      lb $v0, board($v0)
+      bne $v0, 46, contSystemSelect
+
+      # Found maxGain spot available
+      lb $a0, systemPiece
+      sb $a0, board($t0)    # Store systemPiece into board
+      
+      li $v0, 4
+      la $a0, board
+      syscall       # Print board
+      
+      li $v0, 4
+      la $a0, systemPicked
+      syscall
+      
+      li $v0, 11
+      move $a0, $t6
+      syscall       # Print grid
+      
+      move $a0, $t8
+      syscall       # Print cell
+      
+      sb $t6, grid
+      sb $t8, cell
+      
+      jal draw
+      
+      li $s0, 0
+      jal checkWin
+      
+      j setCont
+contSystemSelect:      
+      # (4.) Select random move
+      li $a2, 0
+      jal randomSelect
+      
+      jal draw
+      
+      li $s0, 0
+      jal checkWin
+      
+      li $v0, 4
+      la $a0, board
+      syscall               # Print board
+      
+      j setCont
+# oneMoveWin -- First stores all correct counts in allCount
+#               Looks for 3 in allCount (if finds one, selects it, else contine system turn)
+# Input:
+#    $s0 -- grid counter
+#    $s1 -- cell counter
+#    $s3 -- piece to check for
+#    $s5 -- combination index counter
+#    $s6 -- index counter for allCount[i]
+# Registers:
+#    $t0 - $t7 -- store combination
+#    $s2 -- combination correctness counter
+#    $s4 -- inner counter
+#    $s7 -- saved address
+oneMoveWin:
+      bne $s1, 0, notSaveAddress
+      move $s7, $ra
+notSaveAddress:   
+      li $s4, 0         # Reset inner counter for every location on grid
+      
+      bne $s1, 16, innerCounter  # If cell counter == 16, reset cell counter
+      
+      li $s1, 0                  # Reset cell counter
+      add $s0, $s0, 1            # Increment grid  
+   
+      bne $s0, 4, innerCounter   # If grid counter == 5, exit
+
+      move $ra, $s7              # Load saved address
+      jr $ra                     # Return to systemSelect
+# Note: Uses $s4 as argument
+innerCounter:
+      bne $s4, 7, findAllCount   # If inner counter != 8, findAllCount
+                                 # Else oneMoveWin                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+      add $s1, $s1, 1
+      j oneMoveWin
+      
+findAllCount:
+      lb $t0, comb($s5)   # Load $t0 with 1st grid
+      add $s5, $s5, 1
+      lb $t1, comb($s5)   # Load $t1 with 1st cell
+      add $s5, $s5, 1
+      lb $t2, comb($s5)   # Load $t2 with 2nd grid
+      add $s5, $s5, 1
+      lb $t3, comb($s5)   # Load $t3 with 2nd cell
+      add $s5, $s5, 1
+      lb $t4, comb($s5)   # Load $t4 with 3rd grid
+      add $s5, $s5, 1
+      lb $t5, comb($s5)   # Load $t5 with 3rd cell
+      add $s5, $s5, 1
+      lb $t7, comb($s5)         # Load $t7 with next
+      bne $t7, 32, noSpaceNext  # If next is blank, load $t6 with space
+      add $s5, $s5, 1           # Increment to ignore space
+noSpaceNext:
+      li $s2, 0           # Reset combination counter for every location 
+
+      # Check $t0 and $t1
+      move $a0, $t0
+      move $a1, $t1
+      jal compute          # Get computed value for $t0, $t1
+      move $t7, $v0        # Load $t7 with computed value
+      lb $t7, board($t7)   # Load $t7 with board[$t0,$t1]
+      bne $t7, $s3, checkOp1 # Check if board[$t0,$t1] = piece
+      add $s2, $s2, 1      # If true, $s2 += 1
+checkOp1:      
+      move $a0, $s3        # Load arguments for oppositePiece
+      jal oppositePiece    # Call oppositePiece
+      bne $v0, $t7, allCheck1 # If board[$t0,$t1] = opposite piece
+      li $s2, -50          # If opposite piece, set $s2 to negative #
+     
+      
+allCheck1:  # Check $t2 and $t3
+      move $a0, $t2
+      move $a1, $t3
+      jal compute          # Get computed value for $t2, $t3
+      move $t7, $v0        # Load $t7 with computed value
+      lb $t7, board($t7)   # Load $t7 with board[$t2,$t3]
+      bne $t7, $s3, checkOp2 # Check if board[$t2,$t3] = piece
+      add $s2, $s2, 1      # If true, $s2 += 1
+checkOp2:      
+      move $a0, $s3        # Load arguments for oppositePiece
+      jal oppositePiece    # Call oppositePiece
+      bne $v0, $t7, allCheck2 # If board[$t0,$t1] = opposite piece
+      li $s2, -50          # If opposite piece, set $s2 to negative #
+
+allCheck2:  # Check $t4 and $t5
+      move $a0, $t4
+      move $a1, $t5     
+      jal compute          # Get computed value for $t4, $t5
+      move $t7, $v0        # Load $t7 with computed value
+      lb $t7, board($t7)   # Load $t7 with board[$t4,$t5]
+      bne $t7, $s3, checkOp3 # Check if board[$t4,$t5] = piece
+      add $s2, $s2, 1      # If true, $s2 += 1
+checkOp3:      
+      move $a0, $s3        # Load arguments for oppositePiece
+      jal oppositePiece    # Call oppositePiece
+      bne $v0, $t7, allCheck3 # If board[$t0,$t1] = opposite piece
+      li $s2, -50          # If opposite piece, set $s2 to negative #
+      
+allCheck3:  # Check commented (counters) grid and cell
+      add $s0, $s0, 48     # Change INT to grid
+      add $s1, $s1, 97     # Map 0-15 to a-p
+       
+      move $a0, $s0
+      move $a1, $s1
+      jal compute          # Get computed value for commented location
+      
+      sub $s0, $s0, 48     # Change grid to INT
+      sub $s1, $s1, 97     # Map a-p to 0-15
+      
+      move $t7, $v0        # Load $t7 with computed value
+      lb $t7, board($t7)   # Load $t7 with board[commented location]
+      bne $t7, $s3, checkOp4 # Check if board[commented location] = piece
+      add $s2, $s2, 1      # If true, $s2 += 1
+checkOp4:      
+      move $a0, $s3        # Load arguments for oppositePiece
+      jal oppositePiece    # Call oppositePiece
+      bne $v0, $t7, allCheck4 # If board[$t0,$t1] = opposite piece
+      li $s2, -50          # If opposite piece, set $s2 to negative #
+allCheck4:
+      move $a0, $s3
+      beq $s2, 4, won      # Check if all spots = same piece
+      bne $s2, 3, next     # Check if one combination has allCount[i] != 3, next
+                           # Else check which piece to determine foundWin or blockWin
+      move $t7, $s3        # Save input piece
+                           
+      move $s2, $t2
+      move $s3, $t3
+      move $s4, $t4
+      move $s5, $t5
+      add $s0, $s0, 48     # Change INT to grid
+      add $s1, $s1, 97     # Map 0-15 to a-p
+      move $s6, $s0
+      move $s7, $s1
+      move $s0, $t0
+      move $s1, $t1
+      
+      # If systemPiece, go to foundWin
+      # (Else) If userPiece, go to blockWin
+      lb $t0, systemPiece      # Load in systemPiece to check against
+      beq $t7, $t0, foundWin   # If arg piece == systemPiece, then foundWin
+      bne $t7, $t0, blockWin   # Else blockWin
+      
+next:
+      blt $s2, -1, allStoreNeg   # Check if any prev. checks were the opp. piece
+      bgt $s2, -1, allStoreNorm  # Check if any prev. checks were NOT the opp. piece
+allStoreNeg:
+      li $t0, -1  
+      sb $t0, allCount($s6)  # Store -1 into count[i]
+      j innerIncr
+allStoreNorm:  
+      sb $s2, allCount($s6)  # Store $s2 into count[i]
+      j innerIncr 
+innerIncr:
+      add $s4, $s4, 1     # Increment cell counter
+      add $s6, $s6, 1     # Increment allCount[i] counter
+      j innerCounter      # Continue loop till $s4 == 8
+# foundWin -- finds the location of win
+# Input:
+#    $s0 -- 1st grid
+#    $s1 -- 1st cell
+#    $s2 -- 2nd grid
+#    $s3 -- 2nd cell
+#    $s4 -- 3rd grid
+#    $s5 -- 3rd cell
+#    $s6 -- comment grid
+#    $s7 -- comment cell
+# Jumps to setCont after win prompt (NO STACK)
+foundWin:
+      # Check 1st grid and cell
+      move $a0, $s0
+      move $a1, $s1
+      jal compute
+      move $t3, $v0
+      lb $v0, board($v0)
+      move $t0, $s0
+      move $t1, $s1
+      beq $v0, 46, winner    # If '.', found the empty spot
+      
+      # Check 2nd grid and cell
+      move $a0, $s2
+      move $a1, $s3
+      jal compute
+      move $t3, $v0
+      lb $v0, board($v0)
+      move $t0, $s2
+      move $t1, $s3
+      beq $v0, 46, winner   # If '.', found the empty spot
+      
+      # Check 3rd grid and cell
+      move $a0, $s4
+      move $a1, $s5
+      jal compute
+      move $t3, $v0
+      lb $v0, board($v0)
+      move $t0, $s4
+      move $t1, $s5
+      beq $v0, 46, winner   # If '.', found the empty spot
+      
+      # Check 4th grid and cell
+      move $a0, $s6
+      move $a1, $s7
+      jal compute
+      move $t3, $v0
+      lb $v0, board($v0)
+      move $t0, $s6
+      move $t1, $s7
+      beq $v0, 46, winner   # If '.', found the empty spot
+      
+winner:
+      lb $t9, systemPiece
+      sb $t9, board($t3)
+
+      li $v0, 4
+      la $a0, board
+      syscall
+
+      li $v0, 4
+      la $a0, systemPicked
+      syscall       # Print systemPicked
+      
+      li $v0, 11
+      move $a0, $t0
+      syscall       # Print grid
+      
+      li $v0, 11
+      move $a0, $t1
+      syscall       # Print cell
+      
+      sb $t0, grid
+      sb $t1, cell
+
+      lb $a0, systemPiece
+      j won
+# foundWin -- finds the location of of block
+# Input:
+#    $s0 -- 1st grid
+#    $s1 -- 1st cell
+#    $s2 -- 2nd grid
+#    $s3 -- 2nd cell
+#    $s4 -- 3rd grid
+#    $s5 -- 3rd cell
+#    $s6 -- comment grid
+#    $s7 -- comment cell
+# Jumps to setCont after win prompt (NO STACK)
+blockWin:
+      # Check 1st grid and cell
+      move $a0, $s0
+      move $a1, $s1
+      jal compute
+      move $t3, $v0
+      lb $v0, board($v0)
+      move $t0, $s0
+      move $t1, $s1
+      beq $v0, 46, blocker    # If '.', found the empty spot
+      
+      # Check 2nd grid and cell
+      move $a0, $s2
+      move $a1, $s3
+      jal compute
+      move $t3, $v0
+      lb $v0, board($v0)
+      move $t0, $s2
+      move $t1, $s3
+      beq $v0, 46, blocker   # If '.', found the empty spot
+      
+      # Check 3rd grid and cell
+      move $a0, $s4
+      move $a1, $s5
+      jal compute
+      move $t3, $v0
+      lb $v0, board($v0)
+      move $t0, $s4
+      move $t1, $s5
+      beq $v0, 46, blocker   # If '.', found the empty spot
+      
+      # Check 4th grid and cell
+      move $a0, $s6
+      move $a1, $s7
+      jal compute
+      move $t3, $v0
+      lb $v0, board($v0)
+      move $t0, $s6
+      move $t1, $s7
+      beq $v0, 46, blocker   # If '.', found the empty spot
+      
+blocker:
+      lb $t9, systemPiece
+      sb $t9, board($t3)
+
+      li $v0, 4
+      la $a0, board
+      syscall
+
+      li $v0, 4
+      la $a0, systemPicked
+      syscall       # Print systemPicked
+      
+      li $v0, 11
+      move $a0, $t0
+      syscall       # Print grid
+      
+      li $v0, 11
+      move $a0, $t1
+      syscall       # Print cell
+      
+      sb $t0, grid
+      sb $t1, cell
+      
+      jal setUserPiece
+      
+      j setCont     # Jump to setCont      
+# maxGain -- finds the best grid and cell location
+# Input:
+#    $s0 -- initialized counter
+#    $s1 -- max
+#    $s2 -- max index location
+# Return:
+#    $v0 -- best grid
+#    $v1 -- best cell  
+maxGain:
+      bne $s0, 448, notExit      # If counter != 448, do not exit
+                                 # Else do final check and return
+                                 
+      move $t9, $ra              # Save return address for maxGain
+findLocation:
+
+      # Find combination location for max using max index
+      mul $s3, $s2, 7
+      div $t0, $s2, 7
+      sub $s3, $s3, $t0
+
+      # Load $t0 - $t5
+      lb $t0, comb($s3)   # Load $t0 = 1st grid
+      add $s3, $s3, 1
+      lb $t1, comb($s3)   # Load $t1 = 1st cell
+      add $s3, $s3, 1
+      lb $t2, comb($s3)   # Load $t2 = 2nd grid
+      add $s3, $s3, 1
+      lb $t3, comb($s3)   # Load $t3 = 2nd cell
+      add $s3, $s3, 1
+      lb $t4, comb($s3)   # Load $t4 = 3rd grid
+      add $s3, $s3, 1
+      lb $t5, comb($s3)   # Load $t5 = 3rd cell
+      add $s3, $s3, 1
+skipSpace:      
+      # Check $t0, $t1
+      move $a0, $t0         # Load grid for compute
+      move $a1, $t1         # Load cell for compute
+      jal compute           # Call compute
+      lb $t6, board($v0)    # $t6 = board[$t0, $t1]
+      bne $t6, 46, find1    # If board[$t0, $t1] == '.', set as available spot
+      
+      # Found avaible spot in best combination
+      move $v0, $t0         # Best grid location
+      move $v1, $t1         # Best cell location
+      j exitMax
+find1:
+      # Check $t2, $t3
+      move $a0, $t2         # Load grid for compute
+      move $a1, $t3         # Load cell for compute
+      jal compute           # Call compute
+      lb $t6, board($v0)    # $t6 = board[$t2, $t3]
+      bne $t6, 46, find2    # If board[$t2, $t3] == '.', set as available spot
+      
+      # Found avaible spot in best combination
+      move $v0, $t2         # Best grid location
+      move $v1, $t3         # Best cell location
+      j exitMax   
+find2:
+      # Check $t4, $t5
+      move $a0, $t4         # Load grid for compute
+      move $a1, $t5         # Load cell for compute
+      jal compute           # Call compute
+      lb $t6, board($v0)    # $t6 = board[$t4, $t5]
+      bne $t6, 46, find3    # If board[$t4, $t5] == '.', set as available spot
+      
+      # Found avaible spot in best combination
+      move $v0, $t4         # Best grid location
+      move $v1, $t5         # Best cell location
+      j exitMax
+find3:
+      # Get commented grid and cell
+      div $t0, $s2, 7       # $t0 = 0-63
+      divu $t1, $t0, 16     # $t1 = grid (0-4)
+      mfhi $t2              # $t2  cell (0-15)
+      
+      # Convert grid and cell to characters
+      add $t1, $t1, 48      # Convert 0-4 to 0-4 characters
+      add $t2, $t2, 97      # Convert 0-15 to a-p
+
+      # Check commented grid and cell with grid/cell counters
+      move $a0, $t1         # Load grid for compute
+      move $a1, $t2         # Load cell for compute
+      jal compute           # Call compute
+      lb $t6, board($v0)    # $t6 = board[$t0, $t1]
+      # Should be spot no matter what
+      #bne $t6, 46, find4    # If board[$t0, $t1] == '.', set as available spot
+      
+      # Found avaible spot in best combination
+      move $v0, $t0         # Best grid location for return value
+      move $v1, $t1         # Best cell location for return value
+      j exitMax
+      
+exitMax:
+      move $ra, $t9
+      jr $ra
+notExit:
+      lb $t0, allCount($s0)
+      
+      bge $s1, $t0, maxGreater   # If max > count[i], do not reset max
+                                 # Else reset/overwrite max
+      # Overwrite max
+      move $s1, $t0        # $a1 = max value
+      move $s2, $s0        # $a2 = max index location
+      j maxGain
+maxGreater:
+      add $s0, $s0, 1       # Increment loop counter for allCount[i]
+      j maxGain
+# checkWin -- finds if there a win based on a piece
+# Input:
+#    $s0 -- counter
+# Registers:
+#    $t0 - $t7 -- load comb
+#    $s1 -- combination location
+checkWin:
+      beq $s0, 7, pop
+      bne $s0, 0, skipPush
+      # -- Prolog -- 
+      sub $sp, $sp, 4
+      sw $ra, ($sp)      # Push $ra on stack
+skipPush:
+      # -- Body -- 
+      lb $a0, grid
+      lb $a1, cell
+      jal computeWin
+      move $s1, $v0
+      
+      li $s2, 0
+      
+      # Load $t0 - $t5
+      lb $t0, comb($s1)   # Load $t0 = 1st grid
+      add $s1, $s1, 1
+      lb $t1, comb($s1)   # Load $t1 = 1st cell
+      add $s1, $s1, 1
+      lb $t2, comb($s1)   # Load $t2 = 2nd grid
+      add $s1, $s1, 1
+      lb $t3, comb($s1)   # Load $t3 = 2nd cell
+      add $s1, $s1, 1
+      lb $t4, comb($s1)   # Load $t4 = 3rd grid
+      add $s1, $s1, 1
+      lb $t5, comb($s1)   # Load $t5 = 3rd cell
+      add $s1, $s1, 1
+      lb $t6, comb($s1)
+      bne $t6, 32, skipBlankSpace
+      add $s1, $s1, 1
+skipBlankSpace:      
+      # Check $t0, $t1
+      move $a0, $t0
+      move $a1, $t1
+      jal compute
+      lb $a0, board($v0)
+      lb $a1, userPiece
+      bne $a0, $a1, checkWin1
+      add $s2, $s2, 1
+checkWin1:
+      # Check $t2, $t3
+      move $a0, $t2
+      move $a1, $t3
+      jal compute
+      lb $a0, board($v0)
+      lb $a1, userPiece
+      bne $a0, $a1, checkWin2
+      add $s2, $s2, 1
+checkWin2:
+      # Check $t4, $t5
+      move $a0, $t4
+      move $a1, $t5
+      jal compute
+      lb $a0, board($v0)
+      lb $a1, userPiece
+      bne $a0, $a1, checkWin3
+      add $s2, $s2, 1
+checkWin3:
+      # Check $t4, $t5
+      lb $a0, grid
+      lb $a1, cell
+      jal compute
+      lb $a0, board($v0)
+      lb $a1, userPiece
+      bne $a0, $a1, checkWin4
+      add $s2, $s2, 1
+checkWin4:
+      add $s0, $s0, 1
+      bne $s2, 4, checkWin
+      lb $a0, userPiece
+      j won
+      
+pop:  
+      # -- Epilog --
+      lw $ra, ($sp)
+      add $sp, $sp 4       # Pop $ra
+      jr $ra
+      
+# randomSelect -- selects a random location
+# Input:
+#    $a2 -- counter for saving address
+# Registers:
+#    $t0 -- grid
+#    $t1 -- cell
+#    $t2 -- board[i]
+#    $t3 -- offset computed value
+randomSelect:
+    bne $a2, 0, saveAddress3
+    move $s7, $ra     # Save return address for randomSelect
+saveAddress3:
+    li $a1, 4 
+    li $v0, 42
+    syscall       # Get random grid
+    
+    move $t0, $a0 # $t0 = grid
+    
+    li $a1, 16 
+    li $v0, 42
+    syscall       # Get random cell
+    
+    move $t1, $a0 # $t1 = cell
+    
+    add $t0, $t0, 48     # Change INT to grid
+    add $t1, $t1, 97     # Map 0-15 to a-p
+    
+    move $a0, $t0 # Load grid agrument
+    move $a1, $t1 # Load cell argument
+    
+    jal compute   # Get offset value
+    move $t3, $v0
+    
+    lb $t2, board($v0)        # $t0, board[i]
+    bne $t2, 46, failRandom   # If board[i] != '.' then failRandom
+                              # Else insert into board
+    li $v0, 4
+    la $a0, systemPicked
+    syscall                   # Print systemPicked
+    
+    li $v0, 11
+    move $a0, $t0
+    syscall                   # Print grid
+    
+    li $v0, 11
+    move $a0, $t1
+    syscall                   # Print cell
+    
+    sb $t0, grid
+    sb $t1, cell
+    
+    lb $t1, systemPiece       # $t1 = systemPiece
+    sb $t1, board($t3)        # Store $t1 into board[i]
+    
+    move $ra, $s7             # Load saved address
+    jr $ra                    # Return
+failRandom:
+    add $a2, $a2, 1    # Increment $a2
+    j randomSelect     # Loop till randomSelect works
+# won -- checks who won the game, display prompt of winner
+# Input:
+#    $a0 -- piece that won game
+# Registers:
+#    $t0 -- systemPiece for comparison
+won:
+      lb $t0, systemPiece
+      beq $a0, $t0, wonSystem     # Check if piece = systemPiece
+      				  # Else piece is userPiece
+      li $v0, 4
+      la $a0, wonGame
+      syscall
+      
+      li $v0, 11
+      lb $a0, userPiece
+      syscall
+      				  
+      li $v0, 4
+      la $a0, congratsUser
+      syscall             # Print congratsUser
+      
+      # -- Epilog --
+      lw $t0, ($sp)
+      add $sp, $sp, 4      # Pop $t0
+      lw $ra, ($sp)
+      add $sp, $sp 4       # Pop $ra
+      
+      j exit              # Call exit
+wonSystem:
+      li $v0, 4
+      la $a0, wonGame
+      syscall
+      
+      li $v0, 11
+      lb $a0, systemPiece
+      syscall
+      
+      li $v0, 4
+      la $a0, congratsSystem
+      syscall             # Print congratsSystem
+      
+      j newGame              # Call exit
+# draw -- If draw is true, game goes to setCont, else returns
+draw:
+    lb $a0, counter
+    bne $a0, 64, returnDraw
+    
+    li $v0, 4
+    la $a0, drawGame
+    syscall              # Draw game
+    j newGame            # Ask user if they want a new game
+returnDraw:
+    jr $ra
+# oppositePiece -- gets the opposite piece
+# Input:
+#    $a0 -- piece to get opposite of
+# Return:
+#    $v0 -- opposite piece of input
+oppositePiece:
+      beq $a0, 79, returnX
+      li $v0, 79 
+      jr $ra
+returnX:
+      li $v0, 88
+      jr $ra
+exit:
+      li $v0, 10
+      syscall         # Exit
